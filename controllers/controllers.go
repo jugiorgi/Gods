@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gorilla/mux"
+	"github.com/jugiorgi/Gods/database"
 	"github.com/jugiorgi/Gods/models"
 )
 
@@ -13,5 +15,15 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func AllGods(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(models.Gods)
+	var gods []models.God
+	database.DB.Find(&gods)
+	json.NewEncoder(w).Encode(gods)
+}
+
+func GetGod(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var god models.God
+	database.DB.First(&god, id)
+	json.NewEncoder(w).Encode(god)
 }

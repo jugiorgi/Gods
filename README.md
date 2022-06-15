@@ -1,1 +1,3 @@
-# GreekGods
+# GreekGods 👑
+
+docker-compose up
