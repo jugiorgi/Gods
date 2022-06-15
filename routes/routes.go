@@ -11,7 +11,10 @@ import (
 func HandleRequest() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", controllers.Home)
-	r.HandleFunc("/gods", controllers.AllGods).Methods("Get")
-	r.HandleFunc("/gods/{id}", controllers.GetGod).Methods("Get")
+	r.HandleFunc("/gods", controllers.FindAllGods).Methods("GET")
+	r.HandleFunc("/gods/{id}", controllers.FindGod).Methods("GET")
+	r.HandleFunc("/gods", controllers.CreateGod).Methods("POST")
+	r.HandleFunc("/gods/{id}", controllers.DeleteGod).Methods("DELETE")
+	r.HandleFunc("/gods/{id}", controllers.UpdateGod).Methods("PUT")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
