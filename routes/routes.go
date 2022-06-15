@@ -6,10 +6,12 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jugiorgi/Gods/controllers"
+	"github.com/jugiorgi/Gods/middleware"
 )
 
 func HandleRequest() {
 	r := mux.NewRouter()
+	r.Use(middleware.ContentTypeMiddleware)
 	r.HandleFunc("/", controllers.Home)
 	r.HandleFunc("/gods", controllers.FindAllGods).Methods("GET")
 	r.HandleFunc("/gods/{id}", controllers.FindGod).Methods("GET")
